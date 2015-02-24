@@ -118,6 +118,7 @@
 						locationBased: false,
 						timeout: 0,
 						autoRelease: true,
+						onBeforeSave: function() {},
 						onSave: function() {},
 						onBeforeRestore: function() {},
 						onRestore: function() {},
@@ -400,6 +401,13 @@
 				 * @return void
 				 */
 				saveToBrowserStorage: function( key, value, fireCallback ) {
+					var self = this;
+					
+					var callback_result = self.options.onBeforeSave.call( self );
+					if ( callback_result !== undefined && callback_result === false ) {
+						return;
+					}
+
 					// if fireCallback is undefined it should be true
 					fireCallback = fireCallback === undefined ? true : fireCallback;
 					this.browserStorage.set( key, value );
