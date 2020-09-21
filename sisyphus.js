@@ -6,6 +6,25 @@
  *
  * @author Alexander Kaupanin <kaupanin@gmail.com>
  * @license MIT - see https://github.com/simsalabim/sisyphus/blob/master/MIT-LICENSE
+ *
+ *
+ * This is a customized version based on sisyphus v1.1.2, and cherry picked some commits
+ * from v1.1.3.
+ *
+ * Additional Changes:
+ *   - add support for input arrays
+ *   - fix the detection of CKEditor
+ *   - untabify sisyphus.js
+ *
+ * As of 2018-02-12, sisyphus v1.1.3 is broken for our usage, because of this issue:
+ *
+ * https://github.com/simsalabim/sisyphus/issues/148
+ *
+ * The commit
+ *
+ * https://github.com/simsalabim/sisyphus/commit/752f6767622030068509ef6cb496188aed5a1926#diff-c34c3b9437c0f2b4f2071ae94197f29fR11
+ *
+ * causes radio button selections to be saved with multiple key/value pairs, which breaks restoring the selection.
  */
 
 ( function( $ ) {
