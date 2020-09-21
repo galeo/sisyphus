@@ -98,7 +98,6 @@
             instantiated: [],
             started: []
         };
-        var CKEDITOR = window.CKEDITOR;
 
         function init () {
 
