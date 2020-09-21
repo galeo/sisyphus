@@ -10,6 +10,10 @@
 
 ( function( $ ) {
 
+    function getElementIdentifier(el) {
+        return '[id=' + el.attr( "id" ) + '][name=' + el.attr( "name" ) + ']';
+    }
+
     $.fn.sisyphus = function( options ) {
         var identifier = $.map( this, function( obj ) {
             return $( obj ).attr( "id" ) + $( obj ).attr( "name" );
@@ -234,6 +238,11 @@
                             }
                             var field = $( this );
                             var prefix = (self.options.locationBased ? self.href : "") + targetFormIdAndName + field.attr( "name" ) + self.options.customKeySuffix;
+
+                            if (field.is( ":text" )) {
+                                prefix = (self.options.locationBased ? self.href : "") + targetFormIdAndName + getElementIdentifier( field ) + self.options.customKeySuffix;
+                            }
+
                             if ( field.is( ":text" ) || field.is( "textarea" ) ) {
                                 if ( ! self.options.timeout ) {
                                     self.bindSaveDataImmediately( field, prefix );
@@ -286,6 +295,10 @@
                                     self.saveToBrowserStorage( prefix, value, false );
                                 }
                             } else {
+                                if ( field.is( ":text" )) {
+                                    prefix = (self.options.locationBased ? self.href : "") + targetFormIdAndName + getElementIdentifier( field ) + self.options.customKeySuffix;
+                                }
+
                                 if ( self.isCKEditorExists() ) {
                                     var editor = CKEDITOR.instances[ field.attr("name") ] || CKEDITOR.instances[ field.attr("id") ];
                                     if ( editor ) {
@@ -323,6 +336,10 @@
                             }
                             var field = $( this );
                             var prefix = (self.options.locationBased ? self.href : "") + targetFormIdAndName + field.attr( "name" ) + self.options.customKeySuffix;
+
+                            if (field.is( ":text" )) {
+                                prefix = (self.options.locationBased ? self.href : "") + targetFormIdAndName + getElementIdentifier( field ) + self.options.customKeySuffix;
+                            }
                             var resque = self.browserStorage.get( prefix );
                             if ( resque !== null ) {
                                 self.restoreFieldsData( field, resque );
@@ -502,6 +519,9 @@
                         }
                         var field = $( this );
                         var prefix = (self.options.locationBased ? self.href : "") + targetFormIdAndName + field.attr( "name" ) + self.options.customKeySuffix;
+                        if ( field.is( ":text" ) ) {
+                            prefix = (self.options.locationBased ? self.href : "") + targetFormIdAndName + getElementIdentifier( field ) + self.options.customKeySuffix;
+                        }
                         self.browserStorage.remove( prefix );
                         released = true;
                     } );
